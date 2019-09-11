@@ -50,10 +50,24 @@ Horns.prototype.render = function() {
 //given that a user clicks on the dropdown menu
 //When the user has selected one of the options
 //then only the images whose keyword matches the the option should be displayed
-console.log(keyWords);
+
 
 const $newSelect = $('<select></select>');
 
-keyWords.forEach((value) => {
+//running a for each and putting it into the option
+// append the option to the select
 
-})
+keyWords.forEach((value) => {
+   $newOption.append(value)
+});
+
+Horns.prototype.renderSelect = function () {
+  const $dropdown = $('#select-template');
+  const $dropdownHTML = $dropdown.html();
+
+  const $newOption = $('<option></option');
+  $newOption.attr('value', this.keyword);
+
+  $('select').append($newOption);
+
+}
