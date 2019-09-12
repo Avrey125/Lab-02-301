@@ -55,7 +55,7 @@ $().ready(
     let filterKeywords = [];
     
   allHorns.forEach(image => {
-    if( ! filterKeywords.includes(image.keyword)){
+    if(!filterKeywords.includes(image.keyword)){
       filterKeywords.push(image.keyword);
     }
   })
@@ -70,21 +70,24 @@ $().ready(
 // Day 4 Feature 1 Pagination
 
 //add navigation for the user to switch between two pages. 
+    //we should add a button to switch between
 
 //Each page should render a unique set of images from one of the two provided JSON files.
 
 //Reset the filters, then repopulate them using only keywords from the images currently being displayed.
 
+//this is a function to retrieve the data from page-2
 $.get('data/page-2.json', data => {
   data.forEach(horn => {
     var hornz = new Horns(horn);
-    hornz.render2();
+    // hornz.render2();
   });
-  populateFilter();
+  // populateFilter();
 })
 
+//this is a function render the images from page-2
 Horns.prototype.render2 = function() {
-  const myTemplate = $('#horn-template2').html();
+  const myTemplate = $('#horn-template').html();
   const $newSection = $('<section></section>');
   $newSection.html(myTemplate);
   
