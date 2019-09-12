@@ -18,19 +18,20 @@ function Horns(horn){
     this.horns = horn.horns;
 
     allHorns.push(this);
-    keyWords.push(this.keyword);
-  }
-  //AJAX
-  
-  //use ajax to get the data file
-  //then run each horn through the constructor function
-  // then call the render method on each horn instance
-  // need an array to hold all the horn instances
-  $.get('../data/page-1.json', data => {
-    data.forEach(horn => {
-      var hornz = new Horns(horn);
-      hornz.render();
-  })
+}
+
+//AJAX
+
+//use ajax to get the data file
+//then run each horn through the constructor function
+// then call the render method on each horn instance
+// need an array to hold all the horn instances
+$.get('data/page-1.json', data => {
+  data.forEach(horn => {
+    var hornz = new Horns(horn);
+    hornz.render();
+  });
+  renderDropDown();
 })
 
 Horns.prototype.render = function() {
@@ -46,28 +47,63 @@ Horns.prototype.render = function() {
   
 }
 
-// Feature 2
-//given that a user clicks on the dropdown menu
-//When the user has selected one of the options
-//then only the images whose keyword matches the the option should be displayed
+$().ready(
+);
+
+//feature 2 (Lena's code review)
+function renderDropDown () {
+
+  //I need to make a dropdown all of the keywords
+  //I need to have a list of the keywords
+      //create an array to store the keywords
+      //populate by using forEach on the allHorns
+      //filter out the duplicates
+      //now we have an array of only the unique keywords
+
+      //I would append the keywords onto optiontags of a select
+        let filterKeywords = ['keyword1','keyword2'];
+        filterKeywords.forEach(keyword => {
+          let optionTag = `<option value = "${keyword}">${keyword}</option>`;
+          $('select').append(optionTag);
+        })
 
 
-const $newSelect = $('<select></select>');
 
-//running a for each and putting it into the option
-// append the option to the select
+ 
+}
 
-keyWords.forEach((value) => {
-   $newOption.append(value)
-});
+const populateFilter = () => {
+  let filterKeywords = [];
 
-Horns.prototype.renderSelect = function () {
-  const $dropdown = $('#select-template');
-  const $dropdownHTML = $dropdown.html();
+  // make an array of unique keywords
+  allHorns.forEach(horn => {
+    if(!filterKeywords.includes(horn.keyword)){
+      filterKeywords.push(horn.keyword);
+    }
+  })
 
-  const $newOption = $('<option></option');
-  $newOption.attr('value', this.keyword);
+  // sort alphabetically
+  filterKeywords.sort();
 
-  $('select').append($newOption);
+}
+
+//event listener w/ annomynous function
+const handleFilter = () => {
+  $('select').on('change', function() {
+    // find the value of the thing that was changed
+    let selected = $(this).val();
+
+    // as long as it wasn't the default;
+    if (selected !== 'default'){
+      $('div').hide();
+      //fade in only the thing that was clicked on
+      $(`div.${selected}`).fadeIn();
+    }
+  })
+}
+
+
+
+
 
 }
