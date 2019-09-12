@@ -1,7 +1,7 @@
 'use strict';
 
 const allHorns = [];
-
+const keyWords = [];
 // {
 //     "image_url": "http://3.bp.blogspot.com/_DBYF1AdFaHw/TE-f0cDQ24I/AAAAAAAACZg/l-FdTZ6M7z8/s1600/Unicorn_and_Narwhal_by_dinglehopper.jpg",
 //     "title": "UniWhal",
@@ -38,13 +38,13 @@ Horns.prototype.render = function() {
   const myTemplate = $('#horn-template').html();
   const $newSection = $('<section></section>');
   $newSection.html(myTemplate);
-
+  
   $newSection.find('h2').text(this.title);
   $newSection.find('p').text(this.description);
   $newSection.find('img').attr('src', this.image_url);
 
   $('main').append($newSection);
-
+  
 }
 
 $().ready(
@@ -106,3 +106,4 @@ const handleFilter = () => {
 
 
 
+}
