@@ -1,7 +1,6 @@
 'use strict';
 
 const allHorns = [];
-const keyWords = [];
 // {
 //     "image_url": "http://3.bp.blogspot.com/_DBYF1AdFaHw/TE-f0cDQ24I/AAAAAAAACZg/l-FdTZ6M7z8/s1600/Unicorn_and_Narwhal_by_dinglehopper.jpg",
 //     "title": "UniWhal",
@@ -18,7 +17,6 @@ function Horns(horn){
     this.horns = horn.horns;
 
     allHorns.push(this);
-}
 
 //AJAX
 
@@ -32,6 +30,7 @@ $.get('data/page-1.json', data => {
     hornz.render();
   });
   renderDropDown();
+
 })
 
 Horns.prototype.render = function() {
@@ -44,7 +43,7 @@ Horns.prototype.render = function() {
   $newSection.find('img').attr('src', this.image_url);
 
   $('main').append($newSection);
-  
+  $newSection.attr('class', this.keyword);
 }
 
 $().ready(
@@ -52,6 +51,23 @@ $().ready(
 
 //feature 2 (Lena's code review)
 function renderDropDown () {
+
+
+let filterKeywords = ['stuff'];
+
+const populateFilter = () => {
+
+  allHorns.forEach(image => {
+    if( ! filterKeywords.includes(image.keyword)){
+      filterKeywords.push(image.keyword);
+    }
+  })
+  filterKeywords.sort();
+  filterKeywords.forEach(keyword => {
+    let optionTag = `<option value = "${keyword}"> ${keyword}</option>`
+    $(select).append(optionTag);
+  })
+}
 
   //I need to make a dropdown all of the keywords
   //I need to have a list of the keywords
@@ -106,4 +122,14 @@ const handleFilter = () => {
 
 
 
+
+const handleFilter = () => {
+  $(select).on('change', function() {
+    let selected = $(this).val();
+    if( selected !== 'default'){
+      $('section').hide();
+      $('section').$(selected).fadeIn();
+    }
+  })
 }
+handleFilter();
