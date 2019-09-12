@@ -28,9 +28,10 @@ function Horns(horn){
 // need an array to hold all the horn instances
 $.get('data/page-1.json', data => {
   data.forEach(horn => {
-    var hornie = new Horns(horn);
-    hornie.render();
-  })
+    var hornz = new Horns(horn);
+    hornz.render();
+  });
+  renderDropDown();
 })
 
 Horns.prototype.render = function() {
@@ -47,7 +48,61 @@ Horns.prototype.render = function() {
 }
 
 $().ready(
-  console.log('ready')
 );
+
+//feature 2 (Lena's code review)
+function renderDropDown () {
+
+  //I need to make a dropdown all of the keywords
+  //I need to have a list of the keywords
+      //create an array to store the keywords
+      //populate by using forEach on the allHorns
+      //filter out the duplicates
+      //now we have an array of only the unique keywords
+
+      //I would append the keywords onto optiontags of a select
+        let filterKeywords = ['keyword1','keyword2'];
+        filterKeywords.forEach(keyword => {
+          let optionTag = `<option value = "${keyword}">${keyword}</option>`;
+          $('select').append(optionTag);
+        })
+
+
+
+ 
+}
+
+const populateFilter = () => {
+  let filterKeywords = [];
+
+  // make an array of unique keywords
+  allHorns.forEach(horn => {
+    if(!filterKeywords.includes(horn.keyword)){
+      filterKeywords.push(horn.keyword);
+    }
+  })
+
+  // sort alphabetically
+  filterKeywords.sort();
+
+}
+
+//event listener w/ annomynous function
+const handleFilter = () => {
+  $('select').on('change', function() {
+    // find the value of the thing that was changed
+    let selected = $(this).val();
+
+    // as long as it wasn't the default;
+    if (selected !== 'default'){
+      $('div').hide();
+      //fade in only the thing that was clicked on
+      $(`div.${selected}`).fadeIn();
+    }
+  })
+}
+
+
+
 
 
