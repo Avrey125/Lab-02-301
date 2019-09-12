@@ -17,7 +17,7 @@ function Horns(horn){
     this.horns = horn.horns;
 
     allHorns.push(this);
-
+}
 //AJAX
 
 //use ajax to get the data file
@@ -29,8 +29,7 @@ $.get('data/page-1.json', data => {
     var hornz = new Horns(horn);
     hornz.render();
   });
-  renderDropDown();
-
+  populateFilter();
 })
 
 Horns.prototype.render = function() {
@@ -49,14 +48,13 @@ Horns.prototype.render = function() {
 $().ready(
 );
 
-//feature 2 (Lena's code review)
-function renderDropDown () {
 
+// //feature 2 (Lena's code review)
 
-let filterKeywords = ['stuff'];
-
-const populateFilter = () => {
-
+  // this function 
+  const populateFilter = () => {
+    let filterKeywords = [];
+    
   allHorns.forEach(image => {
     if( ! filterKeywords.includes(image.keyword)){
       filterKeywords.push(image.keyword);
@@ -65,43 +63,14 @@ const populateFilter = () => {
   filterKeywords.sort();
   filterKeywords.forEach(keyword => {
     let optionTag = `<option value = "${keyword}"> ${keyword}</option>`
-    $(select).append(optionTag);
+    $('select').append(optionTag);
   })
 }
-
-  //I need to make a dropdown all of the keywords
-  //I need to have a list of the keywords
-      //create an array to store the keywords
-      //populate by using forEach on the allHorns
-      //filter out the duplicates
-      //now we have an array of only the unique keywords
-
-      //I would append the keywords onto optiontags of a select
-        let filterKeywords = ['keyword1','keyword2'];
-        filterKeywords.forEach(keyword => {
-          let optionTag = `<option value = "${keyword}">${keyword}</option>`;
-          $('select').append(optionTag);
-        })
 
 
 
  
-}
 
-const populateFilter = () => {
-  let filterKeywords = [];
-
-  // make an array of unique keywords
-  allHorns.forEach(horn => {
-    if(!filterKeywords.includes(horn.keyword)){
-      filterKeywords.push(horn.keyword);
-    }
-  })
-
-  // sort alphabetically
-  filterKeywords.sort();
-
-}
 
 //event listener w/ annomynous function
 const handleFilter = () => {
@@ -111,25 +80,17 @@ const handleFilter = () => {
 
     // as long as it wasn't the default;
     if (selected !== 'default'){
-      $('div').hide();
-      //fade in only the thing that was clicked on
-      $(`div.${selected}`).fadeIn();
-    }
-  })
-}
-
-
-
-
-
-
-const handleFilter = () => {
-  $(select).on('change', function() {
-    let selected = $(this).val();
-    if( selected !== 'default'){
       $('section').hide();
-      $('section').$(selected).fadeIn();
+      //fade in only the thing that was clicked on
+      $(`section.${selected}`).fadeIn();
     }
   })
 }
 handleFilter();
+
+
+
+
+
+
+
